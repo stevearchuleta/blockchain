@@ -7,7 +7,7 @@ const bitcoin = new Blockchain();   // instantiate a new Blockchain object and a
 
 
 //==============
-// TEST the createNewBlock method
+// TEST the createNewBlock() method
 //==============
 
 bitcoin.createNewBlock(2389, 'OINA90SDNF90N', '90ANSD9F0N9009N');
@@ -16,7 +16,7 @@ bitcoin.createNewBlock(8459, 'OIASGH45NA90ANN', '90RR4LVANSD9N');
 
 
 //==============
-// TEST the createNewTransaction method
+// TEST the createNewTransaction() method
 //==============
 bitcoin.createNewTransaction(100, 'STEVE53NB65MIFDO', 'RANDY034KIMD73LOP'); // FIRST: this will be located in the pendingTransactions array
 bitcoin.createNewBlock(8888, 'FFFNLIND999DNFU77OIA', '849OPI9333MMN');   // SECOND: mine/create a new block AFTER creating a TRANSACTION which will then place the newTransaction into this new block in the chain array
@@ -30,4 +30,30 @@ bitcoin.createNewTransaction(750, 'STEVE53NB65MIFDO', 'RANDY034KIMD73LOP'); // F
 
 bitcoin.createNewBlock(9876, 'GGGGNLIND999DNFU77OIA', '1111849OPI9333MMN');   // SECOND: mine/create a new block AFTER creating a TRANSACTION which will then place the newTransaction into this new block in the chain array
 
-console.log(bitcoin.chain[4]);
+
+//==============
+// TEST the hashBlock() method
+//==============
+const previousBlockHash = 'EERRGGRR123456KK';
+const currentBlockData = [
+    {
+        amount: 10,
+        sender: 'LORRAINENNNNVV8888',
+        recipient: 'STEVE0000JJJJIIIDDD848'
+    },
+    {
+        amount: 20,
+        sender: 'MANUELNNNNVV8888',
+        recipient: 'STEVE0000JJJJIIIDDD848'
+    },
+    {
+        amount: 30,
+        sender: 'SOUSANNNNVV8888',
+        recipient: 'STEVE0000JJJJIIIDDD848'
+    }
+];
+const nonce = 999;
+
+const hashTest = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
+
+console.log(hashTest);
