@@ -5,7 +5,7 @@ function Blockchain() {
 }
 
 
-Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash){
+Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
     const newBlock = {          // these newBlocks will be block(s) inside of the chain array.
         index : this.chain.length + 1,
         timestamp : Date.now(),
@@ -17,8 +17,10 @@ Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash){
 
     this.newTransactions = [];      // once all of the transactions have been placed into this new/current block and stored in the newTransactions array,
                                     // clear the newTransactions array for another instance
-    this.chain.push(this.newBlock);
+    this.chain.push(newBlock);
 
     return newBlock;
 
 };
+
+module.exports = Blockchain;
