@@ -1,3 +1,4 @@
+const sha256 = require('sha256');
 
 function Blockchain() {
     this.chain = [];            // the substantive blocks that are created and mined in my blockchain will be stored in this chain array.
@@ -38,6 +39,13 @@ Blockchain.prototype.createNewTransaction = function(amount, sender, recipient) 
     // return the exact identifier of the block where this newTransaction will be located (the latest block in the chain array) by invoking this.GetLastBlock() (which returns the soon-to-be previous block object in the chain array)
     // retrieve the index property (the identifier) of this particular block in the chain array; the plus one means that I am one-block-to-the-right of the previous-getLastBlock()-block in the chain array.
     return this.getLastBlock()['index'] + 1;
+};
+
+// hash the currentBlockData: 1) concatenate parameters into one long string; 2) hash this long string; 
+Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce) {
+    const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData);
+    const hash = sha256(dataAsString);
+    return hash;
 };
 
 module.exports = Blockchain;
