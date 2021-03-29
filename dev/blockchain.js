@@ -3,7 +3,13 @@ const sha256 = require('sha256');
 function Blockchain() {
     this.chain = [];            // the substantive blocks that are created and mined in my blockchain will be stored in this chain array.
     this.pendingTransactions = [];  // purgatory: new transactions are held in this pendingTransactions array, not yet recorded onto the blockchain.
-}
+
+    // GENESIS BLOCK
+    // CREATE A GENESIS BLOCK WITHIN THIS BLOCKCHAIN CONSTRUCTOR
+    // BECAUSE THERE IS NO PREVIOUS BLOCK HASH NOR A PROOF OF WORK NONCE NOR A HASH, SO PASS IN ARBITRARY PARAMETERS INTO createNewBlock();
+    this.createNewBlock(420, '0', '0');
+
+};
 
 
 Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
@@ -68,6 +74,7 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
 
    return nonce;
 };
+
 
 
 module.exports = Blockchain;

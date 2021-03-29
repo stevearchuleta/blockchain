@@ -37,7 +37,7 @@ bitcoin.createNewBlock(9876, 'GGGGNLIND999DNFU77OIA', '1111849OPI9333MMN');   //
 //==============
 // TEST the hashBlock() method
 //==============
-
+/*
 const previousBlockHash = 'EERRGGRR123456KK';
 const currentBlockData = [
     {
@@ -57,15 +57,18 @@ const currentBlockData = [
     }
 ];
 const nonce = 25141;
+*/
 
-const hashTest = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
+//const hashTest = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
 
 
 
 //==============
 // TEST the proofOfWork() method
 //==============
-const proofTest = bitcoin.proofOfWork(previousBlockHash, currentBlockData);  // should return a nonce value
+//const proofTest = bitcoin.proofOfWork(previousBlockHash, currentBlockData);  // should return a nonce value
 
-console.log(hashTest);
+//console.log(hashTest);
 //console.log(proofTest);
+
+console.log(bitcoin);
