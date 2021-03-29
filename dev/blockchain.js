@@ -54,18 +54,20 @@ Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, n
 // USES CURRENT BLOCK DATA FOR THE HASH, BUT ALSO THE USES THE PREVIOUS BLOCK HASH
 // CONTINUOUSLY CHANGES NONCE VALUE UNTIL IT FINDS THE CORRECT HASH
 // RETURNS THE NONCE VALUE THAT CREATES THE CORRECT HASH
-Blockchain.prototype.proofOfWork(previousBlockHash, currentBlockData){
+Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData) {
     let nonce = 0;
     let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
     
-    
-    //THIS WHILE LOOP (which could iterate 1,000,000 plus times) IS THE REASON THAT PROOF OF WORK IS SO ENERGY INTENSIVE
-    while (hash.substring(0, 4) !== 0000) {
+    //THIS WHILE LOOP (which could iterate 100,000 plus times) IS THE REASON THAT PROOF OF WORK IS SO ENERGY INTENSIVE
+    while (hash.substring(0, 4) !== '0000') {
         nonce++;
         hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);  //generate a new hash and reassign to hash variable
+        //console.log(hash);
+        
     }
 
    return nonce;
 };
+
 
 module.exports = Blockchain;
