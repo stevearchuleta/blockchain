@@ -11,7 +11,7 @@ Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
         index : this.chain.length + 1,
         timestamp : Date.now(),
         transactions : this.pendingTransactions,  // when a new block is created (via mining), all of the new/pending transactions will be stored in the chain array.
-        nonce : nonce,   // arbitrary number that is a generated proof of work.
+        nonce : nonce,   // specific number (specific value) that is a generated during the while loop in the proof of work method.
         hash : hash,   // data from the new/current block yielded by a hash of the transaction property
         previousBlockHash : previousBlockHash  //data from the previous block instance.
     };
@@ -46,6 +46,26 @@ Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, n
     const dataAsString = previousBlockHash + JSON.stringify(currentBlockData) + nonce.toString() ;
     const hash = sha256(dataAsString);
     return hash;
+};
+
+// PROOF OF WORK METHOD (secures my blockchain)
+// bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce); => constantly increment this nonce value in order to generate different hashes
+// REPEATEDLY HASH BLOCK UNTIL IT FINDS THE CORRECT HASH => '0000KIMNJHYD8765' => which will be any hash that BEGINS with FOUR ZEROS!
+// USES CURRENT BLOCK DATA FOR THE HASH, BUT ALSO THE USES THE PREVIOUS BLOCK HASH
+// CONTINUOUSLY CHANGES NONCE VALUE UNTIL IT FINDS THE CORRECT HASH
+// RETURNS THE NONCE VALUE THAT CREATES THE CORRECT HASH
+Blockchain.prototype.proofOfWork(previousBlockHash, currentBlockData){
+    let nonce = 0;
+    let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
+    
+    
+    //THIS WHILE LOOP (which could iterate 1,000,000 plus times) IS THE REASON THAT PROOF OF WORK IS SO ENERGY INTENSIVE
+    while (hash.substring(0, 4) !== 0000) {
+        nonce++;
+        hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);  //generate a new hash and reassign to hash variable
+    }
+
+   return nonce;
 };
 
 module.exports = Blockchain;
